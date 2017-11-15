@@ -12,5 +12,6 @@ public class Main {
             Operations.displaySelections();
         }
         Operations.findFiles();
+        Operations.convertFiles();
     }
 }

@@ -16,6 +16,7 @@ public class Operations {
     private static String outputFolder;
     private static String outputFormat;
     private static ArrayList<FilePath> filePaths = new ArrayList<FilePath>();
+    private static ArrayList<ArrayList<String>> commands = new ArrayList<ArrayList<String>>();
 
     public static void parseArguments(String[] args) {
         String input = null;
@@ -169,4 +170,29 @@ public class Operations {
         return command;
     }
     */
+
+    public static void convertFiles() {
+        buildCommands();
+    }
+
+    public static void buildCommands() {
+        for (FilePath path: filePaths) {
+            FilePath outputFile = new FilePath(path);
+            outputFile.changeFileExtension(outputFormat);
+            outputFile.modifyFilePathRelative(outputFolder,currentWorkingFolder);
+            ArrayList<String> command = createCommand(path.provideCompletePath(), outputFile.provideCompletePath());
+            commands.add(command);
+        }
+    }
+
+    private static ArrayList<String> createCommand(String inputPath, String outputPath) {
+        ArrayList<String> command = new ArrayList<String>();
+        command.add("pandoc");
+        command.add("-s");
+        command.add(inputPath);
+        //command = addArgsToCommand(command);
+        command.add("-o");
+        command.add(outputPath);
+        return command;
+    }
 }

@@ -32,4 +32,15 @@ public class FilePath {
         String tmp = filenameAndPath + extension;
         return tmp;
     }
+
+    public void modifyFilePathRelative(String newFolder, String currentDirectory) {
+        String filename = filenameAndPath.substring(currentDirectory.length()+1);
+        if (!newFolder.endsWith("\\")) {
+            newFolder += '\\';
+        }
+        filenameAndPath = newFolder + filename;
+        //System.out.println("filename:" + filename);
+        //System.out.println("cwd:" + currentDirectory);
+        //System.out.println("result:" + filenameAndPath);
+    }
 }
