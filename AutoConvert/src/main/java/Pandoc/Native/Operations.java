@@ -21,13 +21,13 @@ public class Operations {
         String outputLoc = null;
         String outputType = null;
         for (int i = 0; i < args.length; i++) {
-            if (args[i] == "-i") {
+            if (args[i].equals("-i")) {
                 i++;
                 input = args[i];
-            } else if (args[i] == "-o") {
+            } else if (args[i].equals("-o")) {
                 i++;
                 outputLoc = args[i];
-            } else if (args[i] == "-f") {
+            } else if (args[i].equals("-f")) {
                 i++;
                 outputType = args[i];
             }
