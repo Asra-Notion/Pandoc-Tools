@@ -34,6 +34,7 @@ public class Display {
     }
 
     public static void displayOutputSelection() {
+        System.out.println("Select an output format:");
         System.out.println("1. .md");
         System.out.println("2. .docx");
         System.out.println("3. .pdf");
