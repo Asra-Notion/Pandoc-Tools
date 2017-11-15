@@ -4,8 +4,12 @@ import Pandoc.Native.Operations;
 import javafx.application.Application;
 
 public class Display {
-    public static void displayMenu(){
+
+    public static void displayWelcome(){
         System.out.println("Welcome to Pandoc-Tools AutoConvert");
+    }
+
+    public static void displayMenu(){
         System.out.println("Select an input format:");
         System.out.println("1. .md");
         System.out.println("2. .docx");
@@ -23,5 +27,16 @@ public class Display {
             }
             System.exit(1);
         }
+    }
+
+    public static void outputFolderSelection() {
+        System.out.println("Enter an output location (Full path to folder):");
+    }
+
+    public static void displayOutputSelection() {
+        System.out.println("1. .md");
+        System.out.println("2. .docx");
+        System.out.println("3. .pdf");
+        System.out.println("4. .html");
     }
 }

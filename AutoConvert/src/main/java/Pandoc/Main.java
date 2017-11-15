@@ -4,9 +4,13 @@ import Pandoc.Native.Operations;
 
 public class Main {
     public static void main(String[] args){
+        Display.displayWelcome();
         Display.checkPandocPresent();
-        Display.displayMenu();
-        Input.getMenuSelection(1,3);
+        Operations.parseArguments(args);
+        if (!Operations.allParametersAreSet())
+        {
+            Operations.displaySelections();
+        }
         Operations.findFiles();
     }
 }
