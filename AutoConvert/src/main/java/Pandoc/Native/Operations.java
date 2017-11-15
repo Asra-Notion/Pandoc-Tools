@@ -2,6 +2,7 @@ package Pandoc.Native;
 
 import Pandoc.Display;
 import Pandoc.Input;
+import Pandoc.Types.FilePath;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +15,7 @@ public class Operations {
     private static String inputFormat;
     private static String outputFolder;
     private static String outputFormat;
-    private static ArrayList<String> files = new ArrayList<String>();
+    private static ArrayList<FilePath> filePaths = new ArrayList<FilePath>();
 
     public static void parseArguments(String[] args) {
         String input = null;
@@ -64,35 +65,108 @@ public class Operations {
 
     public static void findFiles() {
         ArrayList<File> files = new ArrayList<File>();
-        listf(currentWorkingFolder, files);
+        listFilesWithExtension(currentWorkingFolder, files);
+        extractFilePaths(files, filePaths, inputFormat);
     }
 
-    public static void listf(String directoryName, ArrayList<File> files) {
+    private static void extractFilePaths(ArrayList<File> files, ArrayList<FilePath> paths, String format) {
+        for (File f : files) {
+            FilePath path = new FilePath(f.getPath(), format);
+            paths.add(path);
+        }
+    }
+
+    public static void listFilesWithExtension(String directoryName, ArrayList<File> files) {
         File directory = new File(directoryName);
 
         // get all the files from a directory
         File[] fList = directory.listFiles();
         for (File file : fList) {
-            if (file.isFile() && file.getName().endsWith(".docx")) {
+            if (file.isFile() && file.getName().endsWith(inputFormat)) {
                 files.add(file);
             } else if (file.isDirectory()) {
-                listf(file.getAbsolutePath(), files);
+                listFilesWithExtension(file.getAbsolutePath(), files);
             }
         }
     }
 
     public static void displaySelections() {
-        if (inputFormat == null){
+        int selection;
+        if (inputFormat == null) {
             Display.displayMenu();
-            Input.getMenuSelection(1,3);
+            selection = Input.getMenuSelection(1, 3);
+            setInputFormat(selection);
         }
         if (outputFolder == null) {
             Display.outputFolderSelection();
-            Input.getOutputFolder();
+            outputFolder = Input.getOutputFolder();
         }
         if (outputFormat == null) {
             Display.displayOutputSelection();
-            Input.getMenuSelection(1,4);
+            selection = Input.getMenuSelection(1, 4);
+            setOutputFormat(selection);
         }
     }
+
+    private static void setInputFormat(int selection) {
+        switch (selection) {
+            case 1:
+                inputFormat = ".md";
+                break;
+            case 2:
+                inputFormat = ".docx";
+                break;
+            case 3:
+                inputFormat = ".pdf";
+            default:
+                break;
+        }
+    }
+
+    private static void setOutputFormat(int selection) {
+        switch (selection) {
+            case 1:
+                outputFormat = ".md";
+                break;
+            case 2:
+                outputFormat = ".docx";
+                break;
+            case 3:
+                outputFormat = ".pdf";
+                break;
+            case 4:
+                outputFormat = ".html";
+            default:
+                break;
+        }
+    }
+
+    /*
+    public static void executeCommand() {
+        try {
+            ArrayList<String> process = createCommand();
+            Process pandoc = new ProcessBuilder(process).start();
+            //int i = pandoc.exitValue();
+            String line;
+            BufferedReader output = new BufferedReader(new InputStreamReader(pandoc.getErrorStream()));
+            while ((line = output.readLine()) != null) {
+                System.out.println(line);
+            }
+            output.close();
+        } catch (IOException e) {
+
+        }
+    }
+
+    private static ArrayList<String> createCommand() {
+        ArrayList<String> command = new ArrayList<String>();
+        command.add("pandoc");
+        command.add("-s");
+        command.add(inputPath);
+        command = addArgsToCommand(command);
+        command.add("-o");
+        command.add(outputPath);
+        return command;
+    }
+    */
 }
