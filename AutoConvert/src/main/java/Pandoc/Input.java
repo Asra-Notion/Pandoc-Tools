@@ -21,7 +21,7 @@ public class Input {
         }
     }
 
-    private static boolean checkIfValueInsideBounds(int value, int min, int max){
+    protected static boolean checkIfValueInsideBounds(int value, int min, int max){
         return (value >= min && value <= max);
     }
 
