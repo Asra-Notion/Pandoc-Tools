@@ -43,4 +43,9 @@ public class FilePath {
         //System.out.println("cwd:" + currentDirectory);
         //System.out.println("result:" + filenameAndPath);
     }
+
+    public String getFolder(){
+        String folder = filenameAndPath.substring(0, filenameAndPath.lastIndexOf("\\"));
+        return folder;
+    }
 }

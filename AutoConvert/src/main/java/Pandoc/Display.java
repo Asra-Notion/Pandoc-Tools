@@ -40,4 +40,14 @@ public class Display {
         System.out.println("3. .pdf");
         System.out.println("4. .html");
     }
+
+    public static void errorNoFilesFound(){
+        System.out.println("Error, no files found of specified type. Exitting.");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(1);
+    }
 }

@@ -68,6 +68,9 @@ public class Operations {
         ArrayList<File> files = new ArrayList<File>();
         listFilesWithExtension(currentWorkingFolder, files);
         extractFilePaths(files, filePaths, inputFormat);
+        if (filePaths.isEmpty()) {
+            Display.errorNoFilesFound();
+        }
     }
 
     private static void extractFilePaths(ArrayList<File> files, ArrayList<FilePath> paths, String format) {
@@ -142,23 +145,23 @@ public class Operations {
         }
     }
 
-    /*
-    public static void executeCommand() {
+    private static void executeCommand() {
         try {
-            ArrayList<String> process = createCommand();
-            Process pandoc = new ProcessBuilder(process).start();
-            //int i = pandoc.exitValue();
-            String line;
-            BufferedReader output = new BufferedReader(new InputStreamReader(pandoc.getErrorStream()));
-            while ((line = output.readLine()) != null) {
-                System.out.println(line);
+            for (ArrayList<String> item : commands) {
+                Process pandoc = new ProcessBuilder(item).start();
+                String line;
+                BufferedReader output = new BufferedReader(new InputStreamReader(pandoc.getErrorStream()));
+                while ((line = output.readLine()) != null) {
+                    System.out.println(line);
+                }
+                output.close();
             }
-            output.close();
         } catch (IOException e) {
 
         }
     }
 
+    /*
     private static ArrayList<String> createCommand() {
         ArrayList<String> command = new ArrayList<String>();
         command.add("pandoc");
@@ -173,13 +176,15 @@ public class Operations {
 
     public static void convertFiles() {
         buildCommands();
+        executeCommand();
     }
 
     public static void buildCommands() {
-        for (FilePath path: filePaths) {
+        for (FilePath path : filePaths) {
             FilePath outputFile = new FilePath(path);
             outputFile.changeFileExtension(outputFormat);
-            outputFile.modifyFilePathRelative(outputFolder,currentWorkingFolder);
+            outputFile.modifyFilePathRelative(outputFolder, currentWorkingFolder);
+            createOutput(outputFile);
             ArrayList<String> command = createCommand(path.provideCompletePath(), outputFile.provideCompletePath());
             commands.add(command);
         }
@@ -194,5 +199,13 @@ public class Operations {
         command.add("-o");
         command.add(outputPath);
         return command;
+    }
+
+    private static void createOutput(FilePath outputFile) {
+        String folder = outputFile.getFolder();
+        File file = new File(folder);
+        if (!file.exists()){
+            file.mkdirs();
+        }
     }
 }
