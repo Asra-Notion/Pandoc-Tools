@@ -24,4 +24,16 @@ public class Input {
     private static boolean checkIfValueInsideBounds(int value, int min, int max){
         return (value >= min && value <= max);
     }
+
+    public static String getOutputFolder() {
+        while (true) {
+            try {
+                String path = sc.next();
+                return path;
+            } catch (Exception e)
+            {
+                System.out.println("Error, please try again.");
+            }
+        }
+    }
 }
