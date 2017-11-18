@@ -50,7 +50,6 @@ public class Display {
     }
 
     public static void convertingFileFromTo(String s, String s1) {
-        System.out.println("Converting file :" + s);
-        System.out.println("To :" + s1);
+        System.out.println("Creating output :" + s1);
     }
 }
