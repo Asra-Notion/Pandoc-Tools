@@ -11,8 +11,7 @@ namespace FileConvert
         static void Main(string[] args)
         {
             Display.DisplayWelcome();
-            Console.ReadLine();
-            //TODO: Wait with a timer
+            System.Threading.Thread.Sleep(5000);
         }
     }
 }
