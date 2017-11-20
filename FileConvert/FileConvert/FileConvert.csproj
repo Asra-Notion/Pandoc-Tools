@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Display.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="Pandoc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
