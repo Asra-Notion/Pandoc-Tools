@@ -10,6 +10,7 @@ namespace FileConvert
     public class Native
     {
         private List<PandocFile> filesToConvert;
+        private List<PandocFile> outputFiles;
 
         public Native() { }
 
@@ -20,6 +21,13 @@ namespace FileConvert
             {
                 Console.WriteLine(item);
             }
+        }
+
+        public bool TestPandocPresent()
+        {
+            Pandoc test = new Pandoc();
+            test.Start();
+            return test.GetExitCode() == 0;
         }
     }
 }

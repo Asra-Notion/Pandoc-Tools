@@ -12,9 +12,10 @@ namespace FileConvert.Tests
     public class NativeTests
     {
         [TestMethod()]
-        public void NativeTest()
+        public void NativeTestPandocPresent()
         {
             Native test = new Native("");
+            Assert.AreEqual(true, test.TestPandocPresent());
         }
     }
 }

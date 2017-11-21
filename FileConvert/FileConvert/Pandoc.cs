@@ -12,9 +12,9 @@ namespace FileConvert
     {
         private Process process;
 
-        public Pandoc() : this(null, null, "-v") { }
+        public Pandoc() : this(null, null, "-v", Environment.CurrentDirectory) { }
 
-        public Pandoc(string inputFile, string outputFile, string arguments)
+        public Pandoc(string inputFile, string outputFile, string arguments, string workingDirectory)
         {
             process = new Process
             {
@@ -22,7 +22,7 @@ namespace FileConvert
                 {
                     FileName = "pandoc",
                     UseShellExecute = false,
-                    WorkingDirectory = @"C:\Users\Thomas\Onedrive\Documents\Verdant",
+                    WorkingDirectory = workingDirectory,
                     Arguments = arguments,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true

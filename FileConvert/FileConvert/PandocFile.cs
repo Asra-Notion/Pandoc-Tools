@@ -29,13 +29,13 @@ namespace FileConvert
             this.Extension = newExtension;
         }
 
-        public String provideCompletePath()
+        public String ProvideCompletePath()
         {
             String tmp = FileNameAndPath + Extension;
             return tmp;
         }
 
-        public void modifyFilePathRelative(String newFolder, String currentDirectory)
+        public void ModifyFilePathRelative(String newFolder, String currentDirectory)
         {
             String filename = FileNameAndPath.Substring(currentDirectory.Length + 1);
             if (!newFolder.EndsWith("\\"))
@@ -48,7 +48,7 @@ namespace FileConvert
             //System.out.println("result:" + filenameAndPath);
         }
 
-        public String getFolder()
+        public String GetFolder()
         {
             String folder = FileNameAndPath.Substring(0, FileNameAndPath.LastIndexOf("\\"));
             return folder;
