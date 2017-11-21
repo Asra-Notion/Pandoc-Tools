@@ -86,6 +86,7 @@ namespace FileConvert
         public void SaveSettings()
         {
             XmlHelper.ToXmlFile(this, SettingsPath);
+            Display.SettingsSavedSuccess();
         }
 
         public void SelectOutput()

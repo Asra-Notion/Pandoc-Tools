@@ -15,7 +15,7 @@ namespace FileConvert
 
         public static void DisplayMenu()
         {
-            Console.WriteLine("Select an input format:");
+            Console.WriteLine("Select an input format :");
             Console.WriteLine("1. .md");
             Console.WriteLine("2. .docx");
             Console.WriteLine("3. .pdf");
@@ -26,6 +26,11 @@ namespace FileConvert
             Console.WriteLine("Do you want to save the current values for next time ? (y/n)");
         }
 
+        public static void SettingsSavedSuccess()
+        {
+            Console.WriteLine("Settings saved successfully!");
+        }
+
         internal static void MultipleOutputs(string[] outputFolder)
         {
             Console.WriteLine("Multiple outputs folders defined, select one:");
@@ -33,7 +38,7 @@ namespace FileConvert
             {
                 Console.WriteLine((i + 1) + ". " + outputFolder[i]);
             }
-            Console.WriteLine("Select between 1 and " + outputFolder.Length + " : ");
+            Console.WriteLine("Select between 1 and " + outputFolder.Length + " :");
         }
     }
 }
