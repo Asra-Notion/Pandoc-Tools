@@ -25,5 +25,15 @@ namespace FileConvert
         {
             Console.WriteLine("Do you want to save the current values for next time ? (y/n)");
         }
+
+        internal static void MultipleOutputs(string[] outputFolder)
+        {
+            Console.WriteLine("Multiple outputs folders defined, select one:");
+            for (int i = 0; i < outputFolder.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + outputFolder[i]);
+            }
+            Console.WriteLine("Select between 1 and " + outputFolder.Length + " : ");
+        }
     }
 }

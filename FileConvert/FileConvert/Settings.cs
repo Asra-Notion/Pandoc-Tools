@@ -15,7 +15,9 @@ namespace FileConvert
         public string OutputFormat { get; set; }
         public string WorkingFolder { get; set; }
         public bool UseWorkingFolder { get; set; }
-        public string OutputFolder { get; set; }
+        public string[] OutputFolder { get; set; }
+        public int SelectedOutput { get; set; }
+        public bool PromptSave { get; set; }
 
         /// <summary>
         /// Initialise the application default settings
@@ -25,7 +27,9 @@ namespace FileConvert
             InputFormat = string.Empty;
             OutputFormat = string.Empty;
             WorkingFolder = string.Empty;
-            OutputFolder = string.Empty;
+            OutputFolder = new string[] { string.Empty };
+            SelectedOutput = -1;
+            PromptSave = true;
         }
 
         /// <summary>
@@ -33,7 +37,7 @@ namespace FileConvert
         /// </summary>
         /// <param name="useUserSettings">true to use the settings, false to use the program arguments</param>
         /// <param name="args">Launch arguments</param>
-        public Settings(bool useUserSettings, string[] args)
+        public Settings(bool useUserSettings, string[] args) : this()
         {
             if (useUserSettings && File.Exists(SettingsPath))
             {
@@ -43,6 +47,8 @@ namespace FileConvert
                 this.WorkingFolder = fromFile.WorkingFolder;
                 this.UseWorkingFolder = fromFile.UseWorkingFolder;
                 this.OutputFolder = fromFile.OutputFolder;
+                this.SelectedOutput = fromFile.SelectedOutput;
+                this.PromptSave = fromFile.PromptSave;
             }
             else
             {
@@ -52,9 +58,6 @@ namespace FileConvert
 
         private void ParseArguments(string[] args)
         {
-            InputFormat = string.Empty;
-            OutputFormat = string.Empty;
-            OutputFolder = string.Empty;
             WorkingFolder = Environment.CurrentDirectory;
             UseWorkingFolder = true;
             for (int i = 0; i < args.Length; i++)
@@ -67,7 +70,8 @@ namespace FileConvert
                         break;
                     case "-f":
                         i++;
-                        OutputFolder = args[i];
+                        OutputFolder = new string[] { args[i] };
+                        SelectedOutput = 0;
                         break;
                     case "-o":
                         i++;
@@ -82,6 +86,25 @@ namespace FileConvert
         public void SaveSettings()
         {
             XmlHelper.ToXmlFile(this, SettingsPath);
+        }
+
+        public void SelectOutput()
+        {
+            if (OutputFolder.Length > 1)
+            {
+                Display.MultipleOutputs(OutputFolder);
+                string selection = Console.ReadLine();
+                int temp = int.Parse(selection) - 1;
+                if (temp >= 0 && temp < OutputFolder.Length)
+                {
+                    SelectedOutput = temp;
+                    Console.WriteLine("Selected output : " + OutputFolder[SelectedOutput]);
+                }
+            }
+            else
+            {
+                SelectedOutput = 0;
+            }
         }
     }
 }

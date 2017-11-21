@@ -14,17 +14,21 @@ namespace FileConvert
         {
             Display.DisplayWelcome();
             AppSettings = new Settings(true, args);
-            Display.SaveSettings();
+            AppSettings.SelectOutput();
             UserSelectSave();
             System.Threading.Thread.Sleep(5000);
         }
 
         private static void UserSelectSave()
         {
-            string choice = Console.ReadLine();
-            if (choice.ToUpper() == "Y")
+            if (AppSettings.PromptSave)
             {
-                AppSettings.SaveSettings();
+                Display.SaveSettings();
+                string choice = Console.ReadLine();
+                if (choice.ToUpper() == "Y")
+                {
+                    AppSettings.SaveSettings();
+                }
             }
         }
     }
