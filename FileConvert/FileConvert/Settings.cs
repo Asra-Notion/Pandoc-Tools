@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FileConvert
 {
@@ -13,13 +14,16 @@ namespace FileConvert
         public string WorkingFolder { get; set; }
         public bool UseWorkingFolder { get; set; }
         public string OutputFolder { get; set; }
-
+        
         /// <summary>
         /// Initialise the application default settings
         /// </summary>
         public Settings()
         {
-
+            InputFormat = string.Empty;
+            OutputFormat = string.Empty;
+            WorkingFolder = string.Empty;
+            OutputFolder = string.Empty;
         }
 
         /// <summary>
@@ -30,6 +34,12 @@ namespace FileConvert
         public Settings(bool useUserSettings, string[] args)
         {
 
+        }
+
+        public void SaveSettings()
+        {
+            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            XmlHelper.ToXmlFile(this, myDocuments + @"\Asra-Notion\FileConvert\settings.xml");
         }
     }
 }

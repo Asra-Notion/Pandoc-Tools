@@ -54,6 +54,7 @@
     <Compile Include="NativeTests.cs" />
     <Compile Include="PandocTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FileConvert\FileConvert.csproj">

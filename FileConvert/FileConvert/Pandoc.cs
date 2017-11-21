@@ -24,7 +24,8 @@ namespace FileConvert
                     UseShellExecute = false,
                     WorkingDirectory = @"C:\Users\Thomas\Onedrive\Documents\Verdant",
                     Arguments = arguments,
-                    RedirectStandardOutput = true
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
                 }
             };
         }
@@ -42,6 +43,12 @@ namespace FileConvert
                 result.Add(process.StandardOutput.ReadLine());
             }
             return result.ToArray();
+        }
+
+        public int GetExitCode()
+        {
+            process.WaitForExit();
+            return process.ExitCode;
         }
     }
 }
