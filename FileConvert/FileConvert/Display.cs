@@ -20,5 +20,10 @@ namespace FileConvert
             Console.WriteLine("2. .docx");
             Console.WriteLine("3. .pdf");
         }
+
+        public static void SaveSettings()
+        {
+            Console.WriteLine("Do you want to save the current values for next time ? (y/n)");
+        }
     }
 }
