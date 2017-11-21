@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FileConvert
 {
-    internal class Pandoc
+    public class Pandoc
     {
         private Process process;
 
-        internal Pandoc() : this(null, null, "-v", Environment.CurrentDirectory) { }
+        public Pandoc() : this(null, null, "-v", Environment.CurrentDirectory) { }
 
-        internal Pandoc(string inputFile, string outputFile, string arguments, string workingDirectory)
+        public Pandoc(string inputFile, string outputFile, string arguments, string workingDirectory)
         {
             process = new Process
             {
@@ -30,12 +30,12 @@ namespace FileConvert
             };
         }
 
-        internal void Start()
+        public void Start()
         {
             process.Start();
         }
 
-        internal string[] GetOutput()
+        public string[] GetOutput()
         {
             List<string> result = new List<string>();
             while (!process.StandardOutput.EndOfStream)
@@ -45,7 +45,7 @@ namespace FileConvert
             return result.ToArray();
         }
 
-        internal int GetExitCode()
+        public int GetExitCode()
         {
             process.WaitForExit();
             return process.ExitCode;

@@ -8,7 +8,7 @@ namespace FileConvert
 {
     public class Program
     {
-        internal static Settings AppSettings;
+        public static Settings AppSettings;
 
         static void Main(string[] args)
         {
@@ -23,7 +23,7 @@ namespace FileConvert
             System.Threading.Thread.Sleep(5000);
         }
 
-        internal static void UserSelectSave()
+        public static void UserSelectSave()
         {
             if (AppSettings.PromptSave)
             {

@@ -7,13 +7,13 @@ using System.Xml.Serialization;
 
 namespace FileConvert
 {
-    internal static class XmlHelper
+    public static class XmlHelper
     {
-        internal static bool NewLineOnAttributes { get; set; }
+        public static bool NewLineOnAttributes { get; set; }
         /// <summary>
         /// Serializes an object to an XML string, using the specified namespaces.
         /// </summary>
-        internal static string ToXml(object obj, XmlSerializerNamespaces ns)
+        public static string ToXml(object obj, XmlSerializerNamespaces ns)
         {
             Type T = obj.GetType();
 
@@ -31,7 +31,7 @@ namespace FileConvert
         /// <summary>
         /// Serializes an object to an XML string.
         /// </summary>
-        internal static string ToXml(object obj)
+        public static string ToXml(object obj)
         {
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
@@ -41,7 +41,7 @@ namespace FileConvert
         /// <summary>
         /// Deserializes an object from an XML string.
         /// </summary>
-        internal static T FromXml<T>(string xml)
+        public static T FromXml<T>(string xml)
         {
             XmlSerializer xs = new XmlSerializer(typeof(T));
             using (StringReader sr = new StringReader(xml))
@@ -53,7 +53,7 @@ namespace FileConvert
         /// <summary>
         /// Deserializes an object from an XML string, using the specified type name.
         /// </summary>
-        internal static object FromXml(string xml, string typeName)
+        public static object FromXml(string xml, string typeName)
         {
             Type T = Type.GetType(typeName);
             XmlSerializer xs = new XmlSerializer(T);
@@ -66,7 +66,7 @@ namespace FileConvert
         /// <summary>
         /// Serializes an object to an XML file.
         /// </summary>
-        internal static void ToXmlFile(Object obj, string filePath)
+        public static void ToXmlFile(Object obj, string filePath)
         {
             var xs = new XmlSerializer(obj.GetType());
             var ns = new XmlSerializerNamespaces();
@@ -84,7 +84,7 @@ namespace FileConvert
         /// <summary>
         /// Deserializes an object from an XML file.
         /// </summary>
-        internal static T FromXmlFile<T>(string filePath)
+        public static T FromXmlFile<T>(string filePath)
         {
             StreamReader sr = new StreamReader(filePath);
             try
