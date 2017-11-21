@@ -45,5 +45,15 @@ namespace FileConvert
         {
             Console.WriteLine("Set the input file format extension (ex. .md) :");
         }
+
+        public static void SetOutputFolder()
+        {
+            Console.WriteLine("Where do you want to save the converted files (Full path to folder)?");
+        }
+
+        public static void SetOutputFormat()
+        {
+            Console.WriteLine("Set the output file format extension (ex. .docx) :");
+        }
     }
 }

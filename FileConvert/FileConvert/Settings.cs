@@ -110,7 +110,7 @@ namespace FileConvert
 
         public bool AreSettingsSet()
         {
-            return (InputFormat != string.Empty && OutputFolder.Length > 0 && OutputFormat != string.Empty);
+            return (InputFormat != string.Empty && OutputFolder[0] == string.Empty && OutputFormat != string.Empty);
         }
 
         public void SetMissingSettings()
@@ -119,6 +119,16 @@ namespace FileConvert
             {
                 Display.SetInputFormat();
                 InputFormat = Console.ReadLine();
+            }
+            if(OutputFolder[0] == string.Empty)
+            {
+                Display.SetOutputFolder();
+                OutputFolder[0] = Console.ReadLine();
+            }
+            if(OutputFormat == string.Empty)
+            {
+                Display.SetOutputFormat();
+                OutputFormat = Console.ReadLine();
             }
         }
     }
