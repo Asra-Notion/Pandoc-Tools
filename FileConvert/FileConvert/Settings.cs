@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace FileConvert
         /// <param name="args">Launch arguments</param>
         public Settings(bool useUserSettings, string[] args)
         {
-            if (useUserSettings)
+            if (useUserSettings && File.Exists(SettingsPath))
             {
                 Settings fromFile = XmlHelper.FromXmlFile<Settings>(SettingsPath);
                 this.InputFormat = fromFile.InputFormat;
@@ -51,7 +52,31 @@ namespace FileConvert
 
         private void ParseArguments(string[] args)
         {
-            throw new NotImplementedException();
+            InputFormat = string.Empty;
+            OutputFormat = string.Empty;
+            OutputFolder = string.Empty;
+            WorkingFolder = Environment.CurrentDirectory;
+            UseWorkingFolder = true;
+            for (int i = 0; i < args.Length; i++)
+            {
+                switch (args[i])
+                {
+                    case "-i":
+                        i++;
+                        InputFormat = args[i];
+                        break;
+                    case "-f":
+                        i++;
+                        OutputFolder = args[i];
+                        break;
+                    case "-o":
+                        i++;
+                        OutputFormat = args[i];
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public void SaveSettings()

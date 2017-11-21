@@ -11,11 +11,11 @@ namespace FileConvert.Tests
     [TestClass()]
     public class SettingsTests
     {
-        [TestMethod()]
-        public void SaveSettingsTest()
-        {
-            Settings test = new Settings();
-            test.SaveSettings();
-        }
+        //[TestMethod()]
+        //public void SaveSettingsTest()
+        //{
+        //    Settings test = new Settings();
+        //    test.SaveSettings();
+        //}
     }
 }
