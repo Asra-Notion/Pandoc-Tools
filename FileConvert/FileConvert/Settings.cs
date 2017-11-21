@@ -9,12 +9,13 @@ namespace FileConvert
 {
     public class Settings
     {
+        private readonly static string SettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Asra-Notion\FileConvert\settings.xml";
         public string InputFormat { get; set; }
         public string OutputFormat { get; set; }
         public string WorkingFolder { get; set; }
         public bool UseWorkingFolder { get; set; }
         public string OutputFolder { get; set; }
-        
+
         /// <summary>
         /// Initialise the application default settings
         /// </summary>
@@ -33,13 +34,29 @@ namespace FileConvert
         /// <param name="args">Launch arguments</param>
         public Settings(bool useUserSettings, string[] args)
         {
+            if (useUserSettings)
+            {
+                Settings fromFile = XmlHelper.FromXmlFile<Settings>(SettingsPath);
+                this.InputFormat = fromFile.InputFormat;
+                this.OutputFormat = fromFile.OutputFormat;
+                this.WorkingFolder = fromFile.WorkingFolder;
+                this.UseWorkingFolder = fromFile.UseWorkingFolder;
+                this.OutputFolder = fromFile.OutputFolder;
+            }
+            else
+            {
+                ParseArguments(args);
+            }
+        }
 
+        private void ParseArguments(string[] args)
+        {
+            throw new NotImplementedException();
         }
 
         public void SaveSettings()
         {
-            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            XmlHelper.ToXmlFile(this, myDocuments + @"\Asra-Notion\FileConvert\settings.xml");
+            XmlHelper.ToXmlFile(this, SettingsPath);
         }
     }
 }
