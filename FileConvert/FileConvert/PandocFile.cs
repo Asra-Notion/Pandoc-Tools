@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace FileConvert
 {
-    public class PandocFile
+    internal class PandocFile
     {
-        public string Extension { get; private set; }
-        public string FileNameAndPath { get; private set; }
+        internal string Extension { get; private set; }
+        internal string FileNameAndPath { get; private set; }
 
-        public PandocFile(string completePath, string type)
+        internal PandocFile(string completePath, string type)
         {
             int index = completePath.LastIndexOf("type");
             FileNameAndPath = completePath.Substring(0, index);
             Extension = completePath.Substring(index);
         }
 
-        public PandocFile(PandocFile copy)
+        internal PandocFile(PandocFile copy)
         {
             this.Extension = copy.Extension;
             this.FileNameAndPath = copy.FileNameAndPath;
         }
 
-        public void ChangeFileExtension(string newExtension)
+        internal void ChangeFileExtension(string newExtension)
         {
             this.Extension = newExtension;
         }
 
-        public String ProvideCompletePath()
+        internal String ProvideCompletePath()
         {
             String tmp = FileNameAndPath + Extension;
             return tmp;
         }
 
-        public void ModifyFilePathRelative(String newFolder, String currentDirectory)
+        internal void ModifyFilePathRelative(String newFolder, String currentDirectory)
         {
             String filename = FileNameAndPath.Substring(currentDirectory.Length + 1);
             if (!newFolder.EndsWith("\\"))
@@ -48,7 +48,7 @@ namespace FileConvert
             //System.out.println("result:" + filenameAndPath);
         }
 
-        public String GetFolder()
+        internal String GetFolder()
         {
             String folder = FileNameAndPath.Substring(0, FileNameAndPath.LastIndexOf("\\"));
             return folder;

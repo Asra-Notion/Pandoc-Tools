@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace FileConvert
 {
-    class Program
+    public class Program
     {
-        static Settings AppSettings;
+        internal static Settings AppSettings;
 
         static void Main(string[] args)
         {
             Display.DisplayWelcome();
             AppSettings = new Settings(true, args);
+            if (!AppSettings.AreSettingsSet())
+            {
+                AppSettings.SetMissingSettings();
+            }
             AppSettings.SelectOutput();
             UserSelectSave();
             System.Threading.Thread.Sleep(5000);
         }
 
-        private static void UserSelectSave()
+        internal static void UserSelectSave()
         {
             if (AppSettings.PromptSave)
             {

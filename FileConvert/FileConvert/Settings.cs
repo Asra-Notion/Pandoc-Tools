@@ -8,21 +8,21 @@ using System.Xml.Serialization;
 
 namespace FileConvert
 {
-    public class Settings
+    internal class Settings
     {
         private readonly static string SettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Asra-Notion\FileConvert\settings.xml";
-        public string InputFormat { get; set; }
-        public string OutputFormat { get; set; }
-        public string WorkingFolder { get; set; }
-        public bool UseWorkingFolder { get; set; }
-        public string[] OutputFolder { get; set; }
-        public int SelectedOutput { get; set; }
-        public bool PromptSave { get; set; }
+        internal string InputFormat { get; set; }
+        internal string OutputFormat { get; set; }
+        internal string WorkingFolder { get; set; }
+        internal bool UseWorkingFolder { get; set; }
+        internal string[] OutputFolder { get; set; }
+        internal int SelectedOutput { get; set; }
+        internal bool PromptSave { get; set; }
 
         /// <summary>
         /// Initialise the application default settings
         /// </summary>
-        public Settings()
+        internal Settings()
         {
             InputFormat = string.Empty;
             OutputFormat = string.Empty;
@@ -37,7 +37,7 @@ namespace FileConvert
         /// </summary>
         /// <param name="useUserSettings">true to use the settings, false to use the program arguments</param>
         /// <param name="args">Launch arguments</param>
-        public Settings(bool useUserSettings, string[] args) : this()
+        internal Settings(bool useUserSettings, string[] args) : this()
         {
             if (useUserSettings && File.Exists(SettingsPath))
             {
@@ -83,13 +83,13 @@ namespace FileConvert
             }
         }
 
-        public void SaveSettings()
+        internal void SaveSettings()
         {
             XmlHelper.ToXmlFile(this, SettingsPath);
             Display.SettingsSavedSuccess();
         }
 
-        public void SelectOutput()
+        internal void SelectOutput()
         {
             if (OutputFolder.Length > 1)
             {
@@ -105,6 +105,20 @@ namespace FileConvert
             else
             {
                 SelectedOutput = 0;
+            }
+        }
+
+        internal bool AreSettingsSet()
+        {
+            return (InputFormat != string.Empty && OutputFolder.Length > 0 && OutputFormat != string.Empty);
+        }
+
+        internal void SetMissingSettings()
+        {
+            if(InputFormat == string.Empty)
+            {
+                Display.SetInputFormat();
+                InputFormat = Console.ReadLine();
             }
         }
     }

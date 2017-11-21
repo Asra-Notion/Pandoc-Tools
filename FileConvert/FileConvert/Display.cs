@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace FileConvert
 {
-    static class Display
+    internal static class Display
     {
-        public static void DisplayWelcome()
+        internal static void DisplayWelcome()
         {
             Console.WriteLine("Welcome to Pandoc-Tools AutoConvert");
         }
 
-        public static void DisplayMenu()
+        internal static void DisplayMenu()
         {
             Console.WriteLine("Select an input format :");
             Console.WriteLine("1. .md");
@@ -21,12 +21,12 @@ namespace FileConvert
             Console.WriteLine("3. .pdf");
         }
 
-        public static void SaveSettings()
+        internal static void SaveSettings()
         {
             Console.WriteLine("Do you want to save the current values for next time ? (y/n)");
         }
 
-        public static void SettingsSavedSuccess()
+        internal static void SettingsSavedSuccess()
         {
             Console.WriteLine("Settings saved successfully!");
         }
@@ -39,6 +39,11 @@ namespace FileConvert
                 Console.WriteLine((i + 1) + ". " + outputFolder[i]);
             }
             Console.WriteLine("Select between 1 and " + outputFolder.Length + " :");
+        }
+
+        internal static void SetInputFormat()
+        {
+            Console.WriteLine("Set the input file format extension (ex. .md) :");
         }
     }
 }

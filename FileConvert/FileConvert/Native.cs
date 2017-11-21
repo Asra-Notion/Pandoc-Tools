@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FileConvert
 {
-    public class Native
+    internal class Native
     {
         private List<PandocFile> filesToConvert;
         private List<PandocFile> outputFiles;
 
-        public Native() { }
+        internal Native() { }
 
-        public Native(string pathToScan)
+        internal Native(string pathToScan)
         {
             string[] list = Directory.GetFiles(@"C:\Users\Thomas\Onedrive\Documents\Verdant", "*.docx", SearchOption.AllDirectories);
             foreach (var item in list)
@@ -23,11 +23,12 @@ namespace FileConvert
             }
         }
 
-        public bool TestPandocPresent()
+        internal bool TestPandocPresent()
         {
             Pandoc test = new Pandoc();
             test.Start();
             return test.GetExitCode() == 0;
         }
+        
     }
 }
