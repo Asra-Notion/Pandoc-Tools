@@ -13,7 +13,7 @@ namespace FileConvert
 
         public PandocFile(string completePath, string type)
         {
-            int index = completePath.LastIndexOf("type");
+            int index = completePath.LastIndexOf(type);
             FileNameAndPath = completePath.Substring(0, index);
             Extension = completePath.Substring(index);
         }
