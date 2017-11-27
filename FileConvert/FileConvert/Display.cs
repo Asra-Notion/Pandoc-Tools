@@ -18,17 +18,9 @@ namespace FileConvert
             Console.WriteLine("Pandoc was not found. Please install pandoc seperatly before using this tool");
         }
 
-        public static void DisplayMenu()
-        {
-            Console.WriteLine("Select an input format :");
-            Console.WriteLine("1. .md");
-            Console.WriteLine("2. .docx");
-            Console.WriteLine("3. .pdf");
-        }
-
         public static void SaveSettings()
         {
-            Console.WriteLine("Do you want to save the current values for next time ? (y/n)");
+            Console.Write("Do you want to save the current values for next time ? (y/n) : ");
         }
 
         public static void SettingsSavedSuccess()
@@ -36,29 +28,34 @@ namespace FileConvert
             Console.WriteLine("Settings saved successfully!");
         }
 
-        public static void MultipleOutputs(string[] outputFolder)
+        public static void MultiplePresets(string[] inputFolder, string[] outputFolder)
         {
             Console.WriteLine("Multiple outputs folders defined, select one:");
             for (int i = 0; i < outputFolder.Length; i++)
             {
-                Console.WriteLine((i + 1) + ". " + outputFolder[i]);
+                Console.WriteLine((i + 1) + ". Input: " + inputFolder[i] + ", Output: " + outputFolder[i]);
             }
-            Console.WriteLine("Select between 1 and " + outputFolder.Length + " :");
+            Console.Write("Select between 1 and " + outputFolder.Length + " : ");
         }
 
         public static void SetInputFormat()
         {
-            Console.WriteLine("Set the input file format extension (ex. .md) :");
+            Console.Write("Set the input file format extension (ex. .md) : ");
         }
 
         public static void SetOutputFolder()
         {
-            Console.WriteLine("Where do you want to save the converted files (Full path to folder)?");
+            Console.Write("Where do you want to save the converted files (Full path to folder)? ");
         }
 
         public static void SetOutputFormat()
         {
-            Console.WriteLine("Set the output file format extension (ex. .docx) :");
+            Console.Write("Set the output file format extension (ex. .docx) : ");
+        }
+
+        public static void ConversionDone(int total)
+        {
+            Console.WriteLine("Conversion done, total files converted: " + total);
         }
     }
 }

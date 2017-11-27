@@ -13,8 +13,8 @@ namespace FileConvert
         private readonly static string SettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Asra-Notion\FileConvert\settings.xml";
         public string InputFormat { get; set; }
         public string OutputFormat { get; set; }
-        public string[] WorkingFolder { get; set; }
-        public bool UseWorkingFolder { get; set; }
+        public string[] InputFolder { get; set; }
+        public bool UseOutputFolder { get; set; }
         public string[] OutputFolder { get; set; }
         public int SelectedOutput { get; set; }
         public bool PromptSave { get; set; }
@@ -26,7 +26,7 @@ namespace FileConvert
         {
             InputFormat = string.Empty;
             OutputFormat = string.Empty;
-            WorkingFolder = new string[] { string.Empty };
+            InputFolder = new string[] { string.Empty };
             OutputFolder = new string[] { string.Empty };
             SelectedOutput = -1;
             PromptSave = true;
@@ -44,11 +44,16 @@ namespace FileConvert
                 Settings fromFile = XmlHelper.FromXmlFile<Settings>(SettingsPath);
                 this.InputFormat = fromFile.InputFormat;
                 this.OutputFormat = fromFile.OutputFormat;
-                this.WorkingFolder = fromFile.WorkingFolder;
-                this.UseWorkingFolder = fromFile.UseWorkingFolder;
+                this.InputFolder = fromFile.InputFolder;
+                this.UseOutputFolder = fromFile.UseOutputFolder;
                 this.OutputFolder = fromFile.OutputFolder;
                 this.SelectedOutput = fromFile.SelectedOutput;
                 this.PromptSave = fromFile.PromptSave;
+                if (InputFolder.Length != OutputFolder.Length)
+                {
+                    this.InputFolder = new string[] { string.Empty };
+                    this.OutputFolder = new string[] { string.Empty };
+                }
             }
             else
             {
@@ -58,8 +63,8 @@ namespace FileConvert
 
         private void ParseArguments(string[] args)
         {
-            WorkingFolder[0] = Environment.CurrentDirectory;
-            UseWorkingFolder = true;
+            InputFolder[0] = Environment.CurrentDirectory;
+            UseOutputFolder = true;
             for (int i = 0; i < args.Length; i++)
             {
                 switch (args[i])
@@ -93,13 +98,13 @@ namespace FileConvert
         {
             if (OutputFolder.Length > 1)
             {
-                Display.MultipleOutputs(OutputFolder);
+                Display.MultiplePresets(InputFolder, OutputFolder);
                 string selection = Console.ReadLine();
                 int temp = int.Parse(selection) - 1;
                 if (temp >= 0 && temp < OutputFolder.Length)
                 {
                     SelectedOutput = temp;
-                    Console.WriteLine("Selected output : " + OutputFolder[SelectedOutput]);
+                    Console.WriteLine("Selected Option : " + InputFolder[SelectedOutput] + ", " + OutputFolder[SelectedOutput]);
                 }
             }
             else
@@ -115,21 +120,28 @@ namespace FileConvert
 
         public void SetMissingSettings()
         {
-            if(InputFormat == string.Empty)
+            if (InputFormat == string.Empty)
             {
                 Display.SetInputFormat();
                 InputFormat = Console.ReadLine();
             }
-            if(OutputFolder[0] == string.Empty)
+            if (OutputFolder[0] == string.Empty)
             {
                 Display.SetOutputFolder();
                 OutputFolder[0] = Console.ReadLine();
             }
-            if(OutputFormat == string.Empty)
+            if (OutputFormat == string.Empty)
             {
                 Display.SetOutputFormat();
                 OutputFormat = Console.ReadLine();
             }
+        }
+
+        public Tuple<string, string> GetSelectedFolders()
+        {
+            string input = InputFolder[SelectedOutput];
+            string output = OutputFolder[SelectedOutput];
+            return new Tuple<string, string>(input, output);
         }
     }
 }

@@ -9,24 +9,20 @@ namespace FileConvert
     public class Program
     {
         public static Settings AppSettings;
-        public static Native Panodoc;
+        public static Native Pandoc;
 
         static void Main(string[] args)
         {
             Display.DisplayWelcome();
-            if (!Native.TestPandocPresent())
-            {
-                Display.PandocNotFound();
-                Environment.Exit(1);
-            }
+            CheckForPandoc();
             AppSettings = new Settings(true, args);
-            if (!AppSettings.AreSettingsSet())
-            {
-                AppSettings.SetMissingSettings();
-            }
+            SetSettingsIfMissing();
             AppSettings.SelectOutput();
             UserSelectSave();
-            System.Threading.Thread.Sleep(5000);
+            SetUpNative();
+            Pandoc.ConvertFiles();
+            Display.ConversionDone(Pandoc.GetFileCount());
+            System.Threading.Thread.Sleep(2000);
         }
 
         public static void UserSelectSave()
@@ -39,6 +35,29 @@ namespace FileConvert
                 {
                     AppSettings.SaveSettings();
                 }
+            }
+        }
+
+        public static void SetUpNative()
+        {
+            Tuple<string, string> folders = AppSettings.GetSelectedFolders();
+            Pandoc = new Native(folders.Item1, AppSettings.InputFormat, folders.Item2, AppSettings.OutputFormat);
+        }
+
+        public static void CheckForPandoc()
+        {
+            if (!Native.TestPandocPresent())
+            {
+                Display.PandocNotFound();
+                Environment.Exit(1);
+            }
+        }
+
+        public static void SetSettingsIfMissing()
+        {
+            if (!AppSettings.AreSettingsSet())
+            {
+                AppSettings.SetMissingSettings();
             }
         }
     }

@@ -16,6 +16,7 @@ namespace FileConvert
 
         public Pandoc(string inputFile, string outputFile, string arguments, string workingDirectory)
         {
+            arguments = CreateArguments(inputFile, outputFile, arguments);
             process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -30,6 +31,19 @@ namespace FileConvert
             };
         }
 
+        private string CreateArguments(string inputFile, string outputFile, string arguments)
+        {
+            if(inputFile == null || outputFile == null)
+            {
+                if (arguments != null)
+                {
+                    return arguments;
+                }
+            }
+            string command = String.Format("-s \"{0}\" -o \"{1}\" {2}", inputFile, outputFile, arguments);
+            return command;
+        }
+
         public void Start()
         {
             process.Start();
@@ -40,7 +54,9 @@ namespace FileConvert
             List<string> result = new List<string>();
             while (!process.StandardOutput.EndOfStream)
             {
-                result.Add(process.StandardOutput.ReadLine());
+                string line = process.StandardOutput.ReadLine();
+                result.Add(line);
+                Console.WriteLine(line);
             }
             return result.ToArray();
         }
