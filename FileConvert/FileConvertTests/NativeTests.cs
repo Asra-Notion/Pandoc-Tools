@@ -15,7 +15,7 @@ namespace FileConvert.Tests
         public void NativeTestPandocPresent()
         {
             Native test = new Native(@"C:\Users\Thomas\OneDrive\Documents\Verdant",".docx",@"L:\GitHub\Verdant-Project", ".md");
-            Assert.AreEqual(true, test.TestPandocPresent());
+            Assert.AreEqual(true, Native.TestPandocPresent());
         }
     }
 }

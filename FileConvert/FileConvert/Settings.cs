@@ -13,7 +13,7 @@ namespace FileConvert
         private readonly static string SettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Asra-Notion\FileConvert\settings.xml";
         public string InputFormat { get; set; }
         public string OutputFormat { get; set; }
-        public string WorkingFolder { get; set; }
+        public string[] WorkingFolder { get; set; }
         public bool UseWorkingFolder { get; set; }
         public string[] OutputFolder { get; set; }
         public int SelectedOutput { get; set; }
@@ -26,7 +26,7 @@ namespace FileConvert
         {
             InputFormat = string.Empty;
             OutputFormat = string.Empty;
-            WorkingFolder = string.Empty;
+            WorkingFolder = new string[] { string.Empty };
             OutputFolder = new string[] { string.Empty };
             SelectedOutput = -1;
             PromptSave = true;
@@ -58,7 +58,7 @@ namespace FileConvert
 
         private void ParseArguments(string[] args)
         {
-            WorkingFolder = Environment.CurrentDirectory;
+            WorkingFolder[0] = Environment.CurrentDirectory;
             UseWorkingFolder = true;
             for (int i = 0; i < args.Length; i++)
             {

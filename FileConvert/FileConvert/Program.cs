@@ -9,10 +9,16 @@ namespace FileConvert
     public class Program
     {
         public static Settings AppSettings;
+        public static Native Panodoc;
 
         static void Main(string[] args)
         {
             Display.DisplayWelcome();
+            if (!Native.TestPandocPresent())
+            {
+                Display.PandocNotFound();
+                Environment.Exit(1);
+            }
             AppSettings = new Settings(true, args);
             if (!AppSettings.AreSettingsSet())
             {

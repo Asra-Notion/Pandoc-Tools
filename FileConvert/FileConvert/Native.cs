@@ -31,7 +31,7 @@ namespace FileConvert
             }
         }
 
-        public bool TestPandocPresent()
+        public static bool TestPandocPresent()
         {
             Pandoc test = new Pandoc();
             test.Start();

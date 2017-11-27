@@ -13,6 +13,11 @@ namespace FileConvert
             Console.WriteLine("Welcome to Pandoc-Tools AutoConvert");
         }
 
+        public static void PandocNotFound()
+        {
+            Console.WriteLine("Pandoc was not found. Please install pandoc seperatly before using this tool");
+        }
+
         public static void DisplayMenu()
         {
             Console.WriteLine("Select an input format :");
