@@ -185,6 +185,7 @@ public class Operations {
             outputFile.changeFileExtension(outputFormat);
             outputFile.modifyFilePathRelative(outputFolder, currentWorkingFolder);
             createOutput(outputFile);
+            Display.convertingFileFromTo(path.provideCompletePath(), outputFile.provideCompletePath());
             ArrayList<String> command = createCommand(path.provideCompletePath(), outputFile.provideCompletePath());
             commands.add(command);
         }

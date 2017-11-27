@@ -5,6 +5,7 @@ import Pandoc.Native.Operations;
 public class Main {
     public static void main(String[] args){
         //TODO: Settings JSON or XML
+        //TODO: Auto commit
         Display.displayWelcome();
         Display.checkPandocPresent();
         Operations.parseArguments(args);
