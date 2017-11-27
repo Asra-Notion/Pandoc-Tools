@@ -16,16 +16,16 @@ namespace FileConvert
             files = new List<Tuple<PandocFile, PandocFile>>();
         }
 
-        public Native(string pathToScan) : this()
+        public Native(string pathToScan, string inputFormat, string outputFolder, string outputFormat) : this()
         {
-            string[] list = Directory.GetFiles(@"C:\Users\Thomas\Onedrive\Documents\Verdant", "*.docx", SearchOption.AllDirectories);
+            string[] list = Directory.GetFiles(pathToScan, "*" + inputFormat, SearchOption.AllDirectories);
             foreach (var item in list)
             {
-                PandocFile inputFile = new PandocFile(item, ".docx");
+                PandocFile inputFile = new PandocFile(item, inputFormat);
                 PandocFile outputFile = new PandocFile(inputFile);
-                outputFile.ChangeFileExtension(".md");
-                outputFile.ModifyFilePathRelative(@"L:\GitHub\Verdant-Project", @"C:\Users\Thomas\Onedrive\Documents\Verdant");
-                Tuple<PandocFile, PandocFile> tuple = new Tuple<PandocFile, PandocFile>(inputFile,outputFile);
+                outputFile.ChangeFileExtension(outputFormat);
+                outputFile.ModifyFilePathRelative(outputFolder, pathToScan);
+                Tuple<PandocFile, PandocFile> tuple = new Tuple<PandocFile, PandocFile>(inputFile, outputFile);
                 files.Add(tuple);
                 Console.WriteLine(item);
             }
