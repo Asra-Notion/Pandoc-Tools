@@ -18,6 +18,7 @@ namespace FileConvert
         public string[] OutputFolder { get; set; }
         public int SelectedOutput { get; set; }
         public bool PromptSave { get; set; }
+        private int ParamOutput = -1;
 
         /// <summary>
         /// Initialise the application default settings
@@ -59,6 +60,7 @@ namespace FileConvert
             {
                 ParseArguments(args);
             }
+            ParseOutputParam(args);
         }
 
         private void ParseArguments(string[] args)
@@ -88,6 +90,18 @@ namespace FileConvert
             }
         }
 
+        private void ParseOutputParam(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "--preset")
+                {
+                    ParamOutput = int.Parse(args[i + 1]);
+                    break;
+                }
+            }
+        }
+
         public void SaveSettings()
         {
             XmlHelper.ToXmlFile(this, SettingsPath);
@@ -96,7 +110,7 @@ namespace FileConvert
 
         public void SelectOutput()
         {
-            if (OutputFolder.Length > 1)
+            if (OutputFolder.Length > 1 && ParamOutput == -1)
             {
                 Display.MultiplePresets(InputFolder, OutputFolder);
                 string selection = Console.ReadLine();
@@ -106,6 +120,11 @@ namespace FileConvert
                     SelectedOutput = temp;
                     Console.WriteLine("Selected Option : " + InputFolder[SelectedOutput] + ", " + OutputFolder[SelectedOutput]);
                 }
+            }
+            else if (ParamOutput >= 0)
+            {
+                SelectedOutput = ParamOutput;
+                Console.WriteLine("Selected Option : " + InputFolder[SelectedOutput] + ", " + OutputFolder[SelectedOutput]);
             }
             else
             {
